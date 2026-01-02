@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /book-api
+spring:
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+    time-zone: Asia/Shanghai
+  datasource:
+    # 华为云RDS数据库配置，需要修改为实际的RDS内网地址
+    url: jdbc:mysql://rds-oa-internal-ip:3306/wisebookpal?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: root
+    password: your-rds-password
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:mysql_init.sql
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+app:
+  files:
+    upload-dir: ./uploads

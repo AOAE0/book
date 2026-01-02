@@ -1,0 +1,26 @@
+[Unit]
+Description=校园二手书交易平台
+After=mysql.service network.target
+Wants=mysql.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/home/book-platform
+ExecStart=/bin/bash /home/book-platform/startup.sh
+ExecStop=/bin/bash -c 'if [ -f /tmp/book-platform.pid ]; then kill $(cat /tmp/book-platform.pid); rm /tmp/book-platform.pid; fi'
+Restart=always
+RestartSec=10
+
+# 环境变量
+Environment=JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+Environment=PATH=/usr/lib/jvm/java-21-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# 日志配置
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=book-platform
+
+[Install]
+WantedBy=multi-user.target
